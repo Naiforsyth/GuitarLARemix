@@ -1,5 +1,11 @@
+
+
+
+
 export default function Index(){
+
+
   return(
-    <h1>Hola Mundo</h1>
+    <div>Desde index.jsx</div>
   )
 }
