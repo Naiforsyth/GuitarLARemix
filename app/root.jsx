@@ -4,14 +4,15 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  ScrollRestoration
 } from "@remix-run/react";
 import styles from '~/styles/index.css'
 import Header from "~/components/header";
+import Footer from "~/components/footer";
 
 export function meta() {
   return [
-    { title: "GuitarLA -Remix" }      
+    { title: "GuitarLA -Remix" }
   ];
 }
 
@@ -21,7 +22,7 @@ export const links = () => {
     {
       rel: 'stylesheet',
       href: 'https://necolas.github.io/normalize.css/8.0.1/normalize.css'
-    },    
+    },
     {
       rel: 'preconnect',
       href: "https://fonts.googleapis.com"
@@ -50,13 +51,14 @@ export default function App() {
     <html lang="es">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />        
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
       </head>
       <body>
         <Header />
         <Outlet />
+        <Footer />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
