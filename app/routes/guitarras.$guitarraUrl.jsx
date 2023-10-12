@@ -11,22 +11,39 @@ export function links(){
   ]
 }
 
+export async function loader({params}) {
+    
+  const { guitarraUrl } = params
+
+  const guitarra = await getGuitarra(guitarraUrl) 
+
+  if(guitarra.data.length === 0){
+    throw new Response('',{
+      status: 404,
+      statusText: 'Guitarra No Encontrada'
+    })
+
+  }
+
+
+  return guitarra
+
+}
+
 export function meta({data}) {
+
+  if(!data){
+    return [
+    { title: 'Guitarra No Encontrada' },
+    { name: "description", content: 'Guitarras, venta de guitarra, guitarra no encontrada'}, 
+    ]
+  }
+
   return [
     { title: `GuitarLA - ${data.data[0].attributes.nombre}` },
     { name: "description", content: `Guitarras, venta de guitarras, guitarra ${data.data[0].attributes.nombre}` },  
     
   ];
-}
-
-
-export async function loader({params}) {
-    
-    const { guitarraUrl } = params
-
-    const guitarra = await getGuitarra(guitarraUrl) 
-
-    return guitarra
 }
 
 function Guitarra() {

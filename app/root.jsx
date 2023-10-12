@@ -4,7 +4,10 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  isRouteErrorResponse,
+  useRouteError, 
+  Link 
 } from "@remix-run/react";
 import styles from '~/styles/index.css'
 import Header from "~/components/header";
@@ -68,4 +71,36 @@ export default function App() {
 }
 
 
-//
+// Manejo de errores
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <html lang="es">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Header />        
+        <div>
+        <h1 className="error">
+          {error.status} {error.statusText}
+        </h1>
+        <div>
+          <Link className="error-enlace">Volver al home</Link>
+        </div>
+      </div>       
+        <Footer />
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+        </body>     
+      </html>
+    );
+  }
+}
