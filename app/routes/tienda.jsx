@@ -1,7 +1,9 @@
 import { useLoaderData } from 'react-router'
 import { getGuitarras } from '~/models/guitarras.server'
-import Guitarra from '~/components/guitarra'
+import ListadoGuitarras from '~/components/listado-guitarras'
 import styles from '~/styles/guitarras.css'
+import { useOutletContext } from '@remix-run/react'
+
 
 export function meta() {
   return [
@@ -27,24 +29,18 @@ export async function loader() {
 
 function Tienda() {
 
+  const data = useOutletContext()
+  console.log(data)
+
   const guitarras = useLoaderData()
 
 
   return (
     <main className='contenedor'>
-      <h2 className='heading'>Nuestra Colección</h2>
-
-      {guitarras?.length && (
-        <div className='guitarras-grid'>
-          {guitarras.map(guitarra => (
-            <Guitarra
-              key={guitarra?.id}
-              guitarra={guitarra?.attributes}
-            />
-          ))}
-
-        </div>
-      )}
+     <ListadoGuitarras 
+      guitarras = {guitarras}
+      context ={data}
+     />
 
     </main>
   )
