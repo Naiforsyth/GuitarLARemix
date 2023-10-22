@@ -52,11 +52,12 @@ export const links = () => {
 
 export default function App() {
   
-  const [carrito, setCarrito] = useState([])
+  const carritoLS =  typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : null
+  const [carrito, setCarrito] = useState(carritoLS)
 
   useEffect(() =>{
-    console.log('desde useEffect')
-  }, [])
+    localStorage.setItem('carrito', JSON.stringify(carrito))
+  }, [carrito])
 
   const agregarCarrito = guitarra => {
     if (carrito.some(guitarraState => guitarraState.id === guitarra.id)) {
